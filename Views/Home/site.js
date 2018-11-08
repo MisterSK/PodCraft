@@ -1,16 +1,16 @@
 ﻿
 const uri = "api/users";
-let todos = null;
+let users = null;
 function getCount(data) {
   const el = $("#counter");
-  let name = "user";
+  let firstname = "users";
   if (data) {
     if (data > 1) {
-      name = "users";
+      firstname = "users";
     }
-    el.text(data + " " + name);
+    el.text(data + " " + firstname);
   } else {
-    el.text("No " + name);
+    el.text("No " + firstname);
   }
 }
 
