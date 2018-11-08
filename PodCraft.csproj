@@ -8,4 +8,12 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Views\Home\site.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\site.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
 </Project>
