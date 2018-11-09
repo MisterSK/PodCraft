@@ -11,5 +11,7 @@
   <ItemGroup>
     <None Remove="Views\Home\Users.html" />
     <None Remove="Views\Home\search.js" />
+    <None Remove="Views\Home\search.min.js" />
+    <None Remove="Views\Home\js\search.js" />
   </ItemGroup>
 </Project>

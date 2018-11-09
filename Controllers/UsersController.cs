@@ -16,9 +16,9 @@ namespace PodCraft.Controllers
         {
             _context = context;
 
-            if (_context.PodCraftUsers.Count() == 0)
+            if (_context.PodCraftUsers.Count() == 0 || _context.PodCraftUsers.Count() > 12)
             {
-                // Delete the entire PodCraftUser list
+                // Delete the entire PodCraftUsers list
                 var users = context.PodCraftUsers;
                 foreach (var user in users)
                 {

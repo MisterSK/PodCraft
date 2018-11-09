@@ -28,18 +28,21 @@
             padding: 5px;
         }
     </style>
+    <script>
+        assignVars();
+    </script>
 </head>
 <body>
     <h1>Search Products</h1>
     <h4>Enter Details Below</h4>
-    <form action="javascript:void(0);" method="POST" onsubmit="addUser()">
+    <form action="javascript:void(0);" method="POST" onsubmit="getProducts()">
         <input type="text" id="search-id" placeholder="User ID">
         <input type="text" id="search-propertyvalue" placeholder="Property Value">
         <input type="text" id="search-depositamount" placeholder="Deposit Amount">
         <input type="submit" value="Search">
     </form>
 
-    <p id="counter"></p>
+    <p id="search_counter"></p>
 
     <table>
         <tr>

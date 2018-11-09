@@ -16,8 +16,15 @@ namespace PodCraft.Controllers
         {
             _context = context;
 
-            if (_context.PodCraftProducts.Count() == 0)
+            if (_context.PodCraftProducts.Count() == 0 || _context.PodCraftProducts.Count() > 3)
             {
+                // Delete the entire PodCraftProducts list
+                var products = context.PodCraftProducts;
+                foreach (var product in products)
+                {
+                    products.Remove(product);
+                }
+
                 // Create a new PodCraftProduct if list is empty,
                 _context.PodCraftProducts.Add(new PodCraftProduct { 
                     Lender = "Bank A",
