@@ -9,11 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Views\Home\site.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\site.js">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
+    <None Remove="Views\Home\Users.html" />
+    <None Remove="Views\Home\search.js" />
   </ItemGroup>
 </Project>

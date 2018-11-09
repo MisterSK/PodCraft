@@ -15,6 +15,13 @@ namespace PodCraft.Controllers
             return View();
         }
 
+        public IActionResult Users()
+        {
+            ViewData["Message"] = "PodCraft: Users";
+
+            return View();
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "PodCraft";
