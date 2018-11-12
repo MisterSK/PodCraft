@@ -40,6 +40,7 @@ function getData() {
 
       $.each(site_data, function(key, user) {
         const site_tr = $("<tr></tr>")
+          .append($("<td></td>").text(user.id))
           .append($("<td></td>").text(user.firstName))
           .append($("<td></td>").text(user.lastName))
           .append($("<td></td>").text(user.emailAddress))
@@ -70,7 +71,7 @@ function getData() {
 function addUser() {
     const user = {
     firstName: $("#add-firstname").val(),
-    lastName: $("#add-lasttname").val(),
+    lastName: $("#add-lastname").val(),
     emailAddress: $("#add-emailaddress").val(),
     dateOfBirth: $("#add-dateofbirth").val()
     };
@@ -114,7 +115,7 @@ function editUser(id) {
         $("#spoiler").css({ display: "block" });
     }
 
-    $(".my-form").on("submit", function() {
+    $(".edit-form").on("submit", function() {
         const user = {
         id: $("#edit-id").val(),
         firstName: $("#edit-firstname").val(),

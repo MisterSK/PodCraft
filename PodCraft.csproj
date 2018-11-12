@@ -14,4 +14,8 @@
     <None Remove="Views\Home\search.min.js" />
     <None Remove="Views\Home\js\search.js" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Models\Startup.cs" />
+    <Compile Remove="Models\Middleware.cs" />
+  </ItemGroup>
 </Project>

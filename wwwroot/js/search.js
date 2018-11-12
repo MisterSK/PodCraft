@@ -6,7 +6,7 @@
 const search_proto = location.protocol;
 const search_host =  location.hostname;
 const search_port =  location.port;
-const search_uri = search_proto+'//'+search_host+(search_port ? ':'+location.port: '')+'/api/products';
+const search_uri = search_proto+'//'+search_host+(search_port ? ':'+location.port: '')+'/api/search';
 
 let products = null;
 function getProductCount(search_data) {
@@ -18,7 +18,7 @@ function getProductCount(search_data) {
     }
     search_el.text(search_data + " " + lender);
   } else {
-    search_el.text("No " + lender);
+    search_el.text("No " + lender + " available matching your search criteria.");
   }
 }
 
@@ -27,19 +27,20 @@ $(document).ready(function() {
 });
 
 function getProducts() {
+var search_params = '/'+$("#search-id").val()+'/'+$("#search-depositamount").val()+'/'+$("#search-propertyvalue").val()
   $.ajax({
     type: "GET",
-    url: search_uri,
+    url: search_uri + search_params,
     cache: false,
     success: function(search_data) {
       const search_tBody = $("#products");
 
       $(search_tBody).empty();
 
-      getProductCount(search_data.length);
-
-      $.each(search_data, function(key, lender) {
-        const search_tr = $("<tr></tr>")
+      if(!getProductCount(search_data.length) == 0)
+      {
+          $.each(search_data, function(key, lender) {
+          const search_tr = $("<tr></tr>")
           .append($("<td></td>").text(lender.lender))
           .append($("<td></td>").text(lender.interestRate+"%"))
           .append($("<td></td>").text(lender.rateType))
@@ -49,6 +50,7 @@ function getProducts() {
       });
 
       products = search_data;
+      }
     }
   });
 }

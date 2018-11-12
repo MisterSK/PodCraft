@@ -15,37 +15,6 @@ namespace PodCraft.Controllers
         public ProductsController(PodCraftContext context)
         {
             _context = context;
-
-            if (_context.PodCraftProducts.Count() == 0 || _context.PodCraftProducts.Count() > 3)
-            {
-                // Delete the entire PodCraftProducts list
-                var products = context.PodCraftProducts;
-                foreach (var product in products)
-                {
-                    products.Remove(product);
-                }
-
-                // Create a new PodCraftProduct if list is empty,
-                _context.PodCraftProducts.Add(new PodCraftProduct { 
-                    Lender = "Bank A",
-                    InterestRate = 2,
-                    RateType = "Variable",
-                    LTVRatio = 60 });
-
-                _context.PodCraftProducts.Add(new PodCraftProduct { 
-                    Lender = "Bank B",
-                    InterestRate = 3,
-                    RateType = "Fixed",
-                    LTVRatio = 60 });
-
-                _context.PodCraftProducts.Add(new PodCraftProduct { 
-                    Lender = "Bank C",
-                    InterestRate = 4,
-                    RateType = "Variable",
-                    LTVRatio = 90 });
-
-                _context.SaveChanges();
-            }
         }
 
         [HttpGet]

@@ -36,6 +36,9 @@ namespace PodCraft
             services.AddDbContext<PodCraftContext>(opt =>
                 opt.UseInMemoryDatabase("PodCraftDb"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddDistributedMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,12 +54,12 @@ namespace PodCraft
                 app.UseHsts();
             }
 
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseMvc();
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
 
             app.UseMvc(routes =>
             {
