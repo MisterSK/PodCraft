@@ -57,7 +57,7 @@ namespace PodCraft.Controllers
         }
 
         [HttpGet("{id}/{depositAmt}/{propertyVal}", Name = "ProductSearch")]
-        //public ActionResult<PodCraftUser> Index(int id, long depositAmt, long propertyVal)
+        //public ActionResult<PodCraftUser> GetById(int id, double depositAmt, double propertyVal)
         public ActionResult<PodCraftUser> GetById(int id)
         {
             var user = _context.PodCraftUsers.Find(id);
@@ -71,9 +71,6 @@ namespace PodCraft.Controllers
                 DateTime dateOfBith = Convert.ToDateTime(user.DateOfBirth);
                 DateTime localTime = Convert.ToDateTime(DateTime.Now);
                 int DateTimeDiff = localTime.Year - dateOfBith.Year;
-                HttpContext.Session.SetInt32("ageSpan", DateTimeDiff);
-                var ageSpan = HttpContext.Session.GetInt32("ageSpan");
-                Console.WriteLine(ageSpan);
 
                 // Check if search is by user over 18 years of age
                 if (DateTimeDiff < 18)
@@ -81,58 +78,55 @@ namespace PodCraft.Controllers
                     return null;
                 }
 
-                return user;
-            }
-        }
-
-        public ActionResult<List<PodCraftProduct>> Search(long depositAmt, long propertyVal)
-        {
-            var product = _context.PodCraftProducts.ToList();
-            var ageSpan = HttpContext.Session.GetInt32("ageSpan");
-            if (product == null || ageSpan < 18)
-            {
-                return NotFound();
-            }
-            else
-            {
-                // Calculate the LTV ratio
-                decimal ltvRatio = Decimal.Round((depositAmt / propertyVal) * 100);
-                Console.WriteLine("ltvRatio: " + ltvRatio);
-
-                if (ltvRatio > 60 && ltvRatio <= 90)
+                var product = _context.PodCraftProducts.ToList();
+                if (product == null || DateTimeDiff < 18)
                 {
-                    var products = from p in _context.PodCraftProducts select p;
-                    if (products == null)
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        products = products.Where(l => l.LTVRatio <= 90);
-                    }
-
-                    HttpContext.Items.Remove("ageSpan");
-                    return product;
+                    return NotFound();
                 }
-                else if (ltvRatio < 60)
-                {
-                    var products = from p in _context.PodCraftProducts select p;
-                    if (products == null)
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        products = products.Where(l => l.LTVRatio <= 60);
-                    }
-
-                    HttpContext.Items.Remove("ageSpan");
-                    return product;
-                }
-
                 else
                 {
-                    return null;
+                    // Calculate the LTV ratio
+                    double ltvRatio = (propertyVal-depositAmt)/propertyVal * 100;
+
+                    // Determine whether or not products are returned, and which
+                    // List<PodCraftProduct> lstProducts = new List<PodCraftProduct>();
+                    if (ltvRatio > 60 && ltvRatio <= 90)
+                    {
+                        var products = from p in _context.PodCraftProducts select p;
+                        if (products == null)
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            Console.WriteLine("LTVRatio: >60 <=90 is " + ltvRatio);
+                            products = products.Where(p => p.LTVRatio <= 90);
+                            Console.WriteLine("Products: " + product.ToList());
+                        }
+
+                        return user;
+                    }
+                    else if (ltvRatio < 60)
+                    {
+                        var products = from p in _context.PodCraftProducts select p;
+                        if (products == null)
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            Console.WriteLine("LTVRatio: <60 is " + ltvRatio);
+                            products = products.Where(p => p.LTVRatio <= 60);
+                            Console.WriteLine("Products: " + products.ToList());
+                        }
+
+                        return user;
+                    }
+
+                    else
+                    {
+                        return null;
+                    }
                 }
             }
         }

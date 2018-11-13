@@ -17,5 +17,6 @@
   <ItemGroup>
     <Compile Remove="Models\Startup.cs" />
     <Compile Remove="Models\Middleware.cs" />
+    <Compile Remove="Controllers\SearchController %28copy%29.cs" />
   </ItemGroup>
 </Project>

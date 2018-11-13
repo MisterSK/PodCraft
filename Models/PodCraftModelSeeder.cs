@@ -12,8 +12,6 @@ public class PodCraftModelInitializer
     {
         private readonly PodCraftContext _context;
 
-    
-
     }
 }
 */
